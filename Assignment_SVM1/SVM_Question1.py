@@ -19,28 +19,27 @@ X,y=make_blobs(n_samples=1000,n_features=2,centers=2,random_state=39)
 X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2)
 
 
-
-
 df= pd.DataFrame(X, columns=['x','y'])
 df.to_csv(r'dataset.csv', index=False,header=True) 
 plt.scatter(X[:, 0], X[:, 1], c=y, s=50, cmap='autumn')
 plt.title('Complete DataSet Plot')
 plt.show()
 
+
 from sklearn.svm import SVC # "Support vector classifier"
 model = SVC(kernel='linear', C=1E10)
 model.fit(X_train, y_train)
 predictions = model.predict(X_test)
+
 from sklearn.metrics import classification_report,confusion_matrix
 print("confusion matrix")
 print(confusion_matrix(y_test,predictions))
 print(classification_report(y_test,predictions))
+
 from sklearn.metrics import accuracy_score
 f=accuracy_score(y_test, predictions)
 
 print("accuracy :",f)
-
-
 
 
 # In[43]:
