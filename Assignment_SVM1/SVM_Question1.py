@@ -23,7 +23,9 @@ X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2)
 
 df= pd.DataFrame(X, columns=['x','y'])
 df.to_csv(r'dataset.csv', index=False,header=True) 
-plt.scatter(X[:, 0], X[:, 1], c=y, s=50, cmap='autumn');
+plt.scatter(X[:, 0], X[:, 1], c=y, s=50, cmap='autumn')
+plt.title('Complete DataSet Plot')
+plt.show()
 
 from sklearn.svm import SVC # "Support vector classifier"
 model = SVC(kernel='linear', C=1E10)
@@ -67,7 +69,7 @@ def plot_svc_decision_function(model, ax=None, plot_support=True):
     if plot_support:
         ax.scatter(model.support_vectors_[:, 0],
                    model.support_vectors_[:, 1],
-                   s=300, linewidth=1, facecolors='none');
+                   s=300, linewidth=1, facecolors='none')
     ax.set_xlim(xlim)
     ax.set_ylim(ylim)
 
@@ -76,13 +78,13 @@ def plot_svc_decision_function(model, ax=None, plot_support=True):
 
 
 plt.scatter(X[:, 0], X[:, 1], c=y, s=50, cmap='autumn')
-plot_svc_decision_function(model);
+plot_svc_decision_function(model)
 
 
 # In[45]:
 
 
-model.support_vectors_
+print("Support vector coordinates:", model.support_vectors_)
 
 
 # In[48]:
@@ -107,6 +109,8 @@ fig.subplots_adjust(left=0.0625, right=0.95, wspace=0.1)
 for axi, N in zip(ax, [60, 120]):
     plot_svm(N, axi)
     axi.set_title('N = {0}'.format(N))
+    
+plt.show()
     
     #This shows that even if the datapoints apart from the support vectors are changed
 #you will not see any change in the boundary margin
