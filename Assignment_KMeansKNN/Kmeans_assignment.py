@@ -35,6 +35,8 @@ df.head()
 
 
 X=df.values
+from sklearn.preprocessing import MinMaxScaler
+X=sklearn.preprocessing.normalize(X)
 
 
 # In[5]:
@@ -75,7 +77,7 @@ def compute_bic(kmeans,X):
 
 
 
-ks = range(1,11)
+ks = range(1,10)
 
 # run 9 times kmeans and save each result in the KMeans object
 KMeans = [cluster.KMeans(n_clusters = i, init="k-means++").fit(X) for i in ks]
@@ -105,7 +107,7 @@ def find_local_max(o):
     for i in m:
         l.append(i)
     print("Local maxima :",l)
-    print("The maximum BIC value is at cluster number",max(*l))
+    print("The maximum BIC value is at cluster number",max(*l)+1) 
     
 import numpy as np
 from scipy.signal import argrelextrema
@@ -133,15 +135,15 @@ from sklearn.cluster import KMeans
 # In[8]:
 
 
-kmeans6 = KMeans(n_clusters = 7, init = 'k-means++', random_state = 0)
-x1=kmeans6.fit_predict(X)
-labels6 = kmeans6.labels_
+kmeans3 = KMeans(n_clusters = 3, init = 'k-means++', random_state = 0)
+x1=kmeans3.fit_predict(X)
+labels3 = kmeans3.labels_
 
 
 # In[9]:
 
 
-estimator = KMeans(n_clusters=7)
+estimator = KMeans(n_clusters=3)
 estimator.fit(X)
 
 
@@ -152,7 +154,7 @@ from mpl_toolkits.mplot3d import Axes3D
 fig = plt.figure(1, figsize=(7,7))
 ax = Axes3D(fig, rect=[0, 0, 0.95, 1], elev=48, azim=134)
 ax.scatter(X[:, 0], X[:, 1], X[:, 2],
-c=labels6.astype(np.float), edgecolor="k", s=50)
+c=labels3.astype(np.float), edgecolor="k", s=50)
 
 ax.set_xlabel("first column")
 ax.set_ylabel("second column")
@@ -164,7 +166,7 @@ plt.show()
 # In[11]:
 
 
-centroids = kmeans6.cluster_centers_
+centroids = kmeans3.cluster_centers_
 print('The centroid values are as follows:')
 print(centroids)
 
@@ -181,14 +183,14 @@ plt.show()
 # In[12]:
 
 
-centroids = kmeans6.cluster_centers_
+centroids = kmeans3.cluster_centers_
 
 fig = plt.figure(1, figsize=(7,7))
 
 ax = Axes3D(fig, rect=[0, 0, 0.95, 1], elev=48, azim=134)
 ax.scatter(centroids[:,0] ,centroids[:,1],centroids[:,2], color='red', marker='X')
 ax.scatter(X[:, 0], X[:, 1], X[:, 2],
-c=labels6.astype(np.float), edgecolor="k", s=50)
+c=labels3.astype(np.float), edgecolor="k", s=50)
 
 
 ax.set_xlabel("first column")
